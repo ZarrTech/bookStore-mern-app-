@@ -4,7 +4,7 @@ const asyncWrapper = require("../middleware/async");
 
 const getAllBooks = asyncWrapper(async (req, res, next) => {
   const books = await Books.find({});
-  res.status(200).json({books, count:books.length});
+  res.status(200).json({books:books, count:books.length});
 });
 
 const getSingleBook = asyncWrapper(async (req, res) => {

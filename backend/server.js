@@ -2,12 +2,14 @@ require("dotenv").config();
 const bookRoute = require('./routes/book')
 const routeNotFound = require('./middleware/routeNotFound')
 const errorHandlerMiddleware = require('./middleware/errorHandlingMiddleware')
+const cors = require("cors");
 const express = require("express");
 const app = express();
 
 // middleware
 const connectDb = require('./db/connect')
 app.use(express.json())
+app.use(cors())
 
 // routes
 app.use('/books', bookRoute)
