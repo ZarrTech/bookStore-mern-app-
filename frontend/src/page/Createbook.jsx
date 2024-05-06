@@ -1,36 +1,28 @@
 import { useEffect, useState } from "react";
-// import useFetch from "../useFetch/useFetch"
-import { url } from "./Home"
+import useFetch from "../useFetch/useFetch";
+import { url } from "./Home";
 import BackButton from "../components/BackButton";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import axios from "axios";
 
 const Createbook = () => {
   const [title, setTitle] = useState("");
   const [publishedYear, setPublishedYear] = useState("");
   const [author, setAuthor] = useState("");
   const [publisher, setPublisher] = useState("");
- const [isloading, setIsLoading] = useState(false);
- const [error, setError] = useState(null);
+  const { postBook, isloading, error } = useFetch(url);
   const data = { title, author, publishedYear, publisher };
-   const navigate = useNavigate();
- 
-  const postBook = async () => {
-    setIsLoading(true);
-    try {
-      await axios.post(url, data);
-      navigate('/')
-    } catch (error) {
-      setError(error);
-    }
-    setIsLoading(false);
+  const navigate = useNavigate();
+
+  const PostBook = async () => {
+    await postBook(data);
+    navigate("/");
   };
   if (isloading) {
-    return <Spinner/>
+    return <Spinner />;
   }
   if (error) {
-    return <div>there was an error</div>
+    return <div>there was an error</div>;
   }
   return (
     <section className=" p-4">
@@ -83,12 +75,12 @@ const Createbook = () => {
         </div>
         <button
           className=" flex justify-center text-center bg-sky-400 px-3 py-1 rounded-2xl hover:opacity-15 text-white"
-          onClick={postBook}
+          onClick={PostBook}
         >
           Submit
         </button>
       </div>
     </section>
   );
-}
-export default Createbook
+};
+export default Createbook;

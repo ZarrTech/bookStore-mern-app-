@@ -35,7 +35,6 @@ const useFetch = (url) => {
     setIsLoading(true);
     try {
       await axios.delete(`${url}/${id}`);
-      navigate("/");
     } catch (error) {
       setError(error);
     }
