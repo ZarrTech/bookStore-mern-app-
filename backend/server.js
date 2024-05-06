@@ -22,11 +22,11 @@ const start = async() => {
     try {
         await connectDb(process.env.MONGO_URI) 
         app.listen(port, () => {
-          console.log(`server running on port ${port}`);
+            console.log(`server running on port ${port}`)
         });
     } catch (error) {
-        console.log('could not connect to database');
-    }
+        console.log('could not connect to database')
+    };
 }
 
 // connect to mongoDB && start port

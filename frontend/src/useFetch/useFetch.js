@@ -1,10 +1,11 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 const useFetch = (url) => {
   const [books, setBooks] = useState([]);
   const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
+  const navigate = useNavigate()
 
   useEffect(() => {
     const fetchData = async () => {
@@ -23,8 +24,7 @@ const useFetch = (url) => {
   const postBook = async (newRecord) => {
     setIsLoading(true);
     try {
-      const response = await axios.post(url, newRecord);
-      setBooks([...books], response.data);
+       await axios.post(url, newRecord);
     } catch (error) {
       setError(error);
     }
@@ -35,7 +35,7 @@ const useFetch = (url) => {
     setIsLoading(true);
     try {
       await axios.delete(`${url}/${id}`);
-      Navigate("/");
+      navigate("/");
     } catch (error) {
       setError(error);
     }

@@ -1,10 +1,11 @@
-import Spinner from "../components/Spinner";
+import Spinner from "../Spinner";
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsInfoCircle } from "react-icons/bs";
-import { MdOutlineAddBox, MdOutlineDelete } from "react-icons/md";
+import {  MdOutlineDelete } from "react-icons/md";
 import { Link } from "react-router-dom";
 
-const BookLayout = ({ isloading, error, books }) => {
+const BookTable = ({ isloading, error, books }) => {
+  
     if (isloading) {
       return <Spinner/>
   }
@@ -63,4 +64,4 @@ const BookLayout = ({ isloading, error, books }) => {
     </table>
   );
 };
-export default BookLayout;
+export default BookTable;
