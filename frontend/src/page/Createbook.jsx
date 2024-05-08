@@ -4,6 +4,7 @@ import { url } from "./Home";
 import BackButton from "../components/BackButton";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../components/Spinner";
+import { useSnackbar } from "notistack";
 
 const Createbook = () => {
   const [title, setTitle] = useState("");
@@ -13,10 +14,14 @@ const Createbook = () => {
   const { postBook, isloading, error } = useFetch(url);
   const data = { title, author, publishedYear, publisher };
   const navigate = useNavigate();
-
+  const { enqueueSnackbar } = useSnackbar();
   const PostBook = async () => {
-    await postBook(data);
-    navigate("/");
+    try {
+      await postBook(data);
+      navigate("/");
+    } catch (error) {
+      enqueueSnackbar("Error", { variant: "error" });
+    }
   };
   if (isloading) {
     return <Spinner />;

@@ -4,7 +4,7 @@ import { url } from "./Home"
 import Spinner from "../components/Spinner"
 
 const Showbook = () => {
-  const { books, isloading, editBook, error } = singleFetch(url)
+  const { books, isloading,  error } = singleFetch(url)
   console.log(books);
   const { title, author, publishedYear, createdAt, updatedAt, publisher } = books
  

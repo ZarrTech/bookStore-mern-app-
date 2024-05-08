@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
 import { useParams } from "react-router-dom";
+import { useSnackbar } from "notistack";
 
 const singleFetch = (url) => {
   const [books, setBooks] = useState({});
   const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
     const { id } = useParams();
-    const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar();
 
   useEffect(() => {
     const fetchSingleData = async () => {
@@ -28,11 +28,13 @@ const singleFetch = (url) => {
     setIsLoading(true);
     try {
       await axios.patch(`${url}/${id}`, data);
-      navigate('/');
+       enqueueSnackbar("book created successfully ", { variant: "success" });
     } catch (error) {
       setError(error);
+       enqueueSnackbar("error ", { variant: "error" });
     }
     setIsLoading(false);
+    enqueueSnackbar("book created successfully ", { variant: "success" });
   };
 
   return { isloading, error, books, editBook };

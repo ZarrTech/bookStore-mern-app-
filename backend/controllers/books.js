@@ -35,11 +35,11 @@ const updateBook = asyncWrapper(async (req, res) => {
 
 const deleteBook = asyncWrapper(async (req, res) => {
   const { id: bookId } = req.params;
-  const book = Books.findOneAndDelete({ _id: bookId });
+  const book = await Books.findOneAndDelete({ _id: bookId });
   if (!book) {
     return next(CustomApiError(`no book by with Id of ${bookId}`, 404));
   }
-  res.status(200).json({});
+  res.status(200).json({book});
 });
 
-module.exports = {getAllBooks, getSingleBook, postBook, updateBook, deleteBook};
+module.exports = { getAllBooks, getSingleBook, postBook, updateBook, deleteBook }
