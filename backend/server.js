@@ -9,7 +9,16 @@ const app = express();
 // middleware
 const connectDb = require('./db/connect')
 app.use(express.json())
-app.use(cors())
+app.use(cors({
+    origin: [],
+    methods: ["post", "get", "patch", "delete"],
+    credentials: true
+}))
+
+// default route
+app.get('/', (req, res) => {
+    res.json("hello")
+})
 
 // routes
 app.use('/books', bookRoute)

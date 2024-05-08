@@ -4,12 +4,14 @@ import { useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const singleFetch = (url) => {
+  
   const [books, setBooks] = useState({});
   const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
     const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
+  axios.defaults.withCredentials =true
   useEffect(() => {
     const fetchSingleData = async () => {
       setIsLoading(true);
