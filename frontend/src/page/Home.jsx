@@ -7,7 +7,7 @@ import BookTable from "../components/home/BookTable";
 import useFetch from '../useFetch/useFetch'
 import { useState } from "react";
 import BookCard from "../components/home/BookCard";
- export  const url = "http://localhost:3000/books";
+ export  const url = "https://book-store-mern-server-steel.vercel.app/";
 const Home = () => {
   const [ShowType, setShowType] = useState('table')
   const { books, isloading, error } = useFetch(url)
