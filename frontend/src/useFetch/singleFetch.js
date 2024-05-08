@@ -11,6 +11,7 @@ const singleFetch = (url) => {
     const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
+
   useEffect(() => {
     const fetchSingleData = async () => {
       setIsLoading(true);

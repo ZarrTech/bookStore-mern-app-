@@ -9,7 +9,13 @@ const app = express();
 // middleware
 const connectDb = require('./db/connect')
 app.use(express.json())
-app.use(cors())
+app.use(
+  cors({
+    origin: ["https://book-store-mern-frontend-beta.vercel.app/"],
+    methods: ["POST", "GET", "PATCH", "DELETE"],
+    allowedHeaders: ["content-type"],
+  })
+);
 
 // default route
 app.get('/', (req, res) => {
