@@ -10,7 +10,12 @@ const app = express();
 const connectDb = require('./db/connect')
 app.use(express.json())
 app.use(
-  cors()
+  cors({
+    origin: ["https://book-store-mern-frontend-beta.vercel.app"],
+    methods: ["POST", "GET", "PATCH", "DELETE"],
+      allowedHeaders: ["content-type"],
+    credentials: true
+  })
 );
 
 // default route

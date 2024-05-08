@@ -11,7 +11,7 @@ const singleFetch = (url) => {
     const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
 
-
+  axios.defaults.withCredentials =true
   useEffect(() => {
     const fetchSingleData = async () => {
       setIsLoading(true);
