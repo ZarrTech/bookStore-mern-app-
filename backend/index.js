@@ -12,12 +12,12 @@ app.use(express.json())
 app.use(cors())
 
 // default route
-app.get('/', (req, res) => {
+app.get("/", (req, res) => {
     res.json("hello")
 })
 
 // routes
-app.use('/books', bookRoute)
+app.use("/books", bookRoute)
 app.use(routeNotFound)
 app.use(errorHandlerMiddleware)
 
