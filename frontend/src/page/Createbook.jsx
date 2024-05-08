@@ -22,6 +22,7 @@ const Createbook = () => {
     } catch (error) {
       enqueueSnackbar("Error", { variant: "error" });
     }
+    enqueueSnackbar('book created ', {variant: 'success'})
   };
   if (isloading) {
     return <Spinner />;
