@@ -11,7 +11,7 @@ const connectDb = require('./db/connect')
 app.use(express.json())
 app.use(
   cors({
-    origin: ["https://book-store-mern-frontend-beta.vercel.app/"],
+    origin: ["https://book-store-mern-frontend-beta.vercel.app"],
     methods: ["POST", "GET", "PATCH", "DELETE"],
     allowedHeaders: ["content-type"],
   })
