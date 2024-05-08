@@ -12,16 +12,16 @@ app.use(express.json())
 app.use(cors())
 
 // default route
-app.get("/", (req, res) => {
+app.get('/', (req, res) => {
     res.json("hello")
 })
 
 // routes
-app.use("/books", bookRoute)
+app.use('/books', bookRoute)
 app.use(routeNotFound)
 app.use(errorHandlerMiddleware)
 
-const port = 3000;
+const port = process.env.PORT || 3000;
 
 const start = async() => {
     try {

@@ -9,7 +9,7 @@ const useFetch = (url) => {
   const [error, setError] = useState(false);
   const { enqueueSnackbar } = useSnackbar()
   
- axios.defaults.withCredentials = true;
+
   // get books
   useEffect(() => {
     const fetchData = async () => {
