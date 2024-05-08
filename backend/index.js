@@ -9,11 +9,7 @@ const app = express();
 // middleware
 const connectDb = require('./db/connect')
 app.use(express.json())
-app.use(cors({
-    origin: [],
-    methods: ["post", "get", "patch", "delete"],
-    credentials: true
-}))
+app.use(cors())
 
 // default route
 app.get('/', (req, res) => {
@@ -25,7 +21,7 @@ app.use('/books', bookRoute)
 app.use(routeNotFound)
 app.use(errorHandlerMiddleware)
 
-const port = process.env.PORT || 3000;
+const port = 3000;
 
 const start = async() => {
     try {
