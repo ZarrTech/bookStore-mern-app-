@@ -4,14 +4,12 @@ import { useParams } from "react-router-dom";
 import { useSnackbar } from "notistack";
 
 const singleFetch = (url) => {
-  
   const [books, setBooks] = useState({});
   const [isloading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
     const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
-
-  axios.defaults.withCredentials =true
+axios.defaults.withCredentials = true;
   useEffect(() => {
     const fetchSingleData = async () => {
       setIsLoading(true);
@@ -30,13 +28,12 @@ const singleFetch = (url) => {
     setIsLoading(true);
     try {
       await axios.patch(`${url}/${id}`, data);
-       enqueueSnackbar("book created successfully ", { variant: "success" });
     } catch (error) {
       setError(error);
        enqueueSnackbar("error ", { variant: "error" });
     }
     setIsLoading(false);
-    enqueueSnackbar("book created successfully ", { variant: "success" });
+    enqueueSnackbar('book edited successfully ', { variant: 'success' })
   };
 
   return { isloading, error, books, editBook };
