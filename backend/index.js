@@ -22,9 +22,9 @@ app.use(
 app.use(express.json());
 
 // default route
-app.get("/", (req, res) => {
-  res.json("hello");
-});
+// app.get("/", (req, res) => {
+//   res.json("hello");
+// });
 
 // routes
 app.use("/books", bookRoute);
@@ -33,16 +33,12 @@ app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
 
-const start = async () => {
-  try {
-    await connectDb(process.env.MONGO_URI);
+connectDb(process.env.MONGO_URI);
+
+
+ 
     app.listen(port, () => {
       console.log(`server running on port ${port}`);
     });
-  } catch (error) {
-    console.log("could not connect to database");
-  }
-};
+ 
 
-// connect to mongoDB && start port
-start();
