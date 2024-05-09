@@ -4,19 +4,18 @@ import Spinner from "../components/Spinner"
 import { useParams } from "react-router-dom"
 import { useNavigate } from "react-router-dom"
 import { url } from "./Home"
-import { useSnackbar } from 'notistack';
+
 const Deletebook = () => {
   const { deleteBook, isloading, error } = useFetch(url)
   const { id } = useParams()
   const navigate = useNavigate()
-const { enqueueSnackbar } = useSnackbar();
+
   const removeBook = async () => {
     try {
       await deleteBook(id);
-      enqueueSnackbar('book deleted successfully', { variant:'success'})
+     
       navigate("/");
     } catch (error) {
-      enqueueSnackbar('error', {variant:'error'})
     }
     
   }

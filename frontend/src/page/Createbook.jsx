@@ -14,15 +14,14 @@ const Createbook = () => {
   const { postBook, isloading, error } = useFetch(url);
   const data = { title, author, publishedYear, publisher };
   const navigate = useNavigate();
-  const { enqueueSnackbar } = useSnackbar();
   const PostBook = async () => {
     try {
       await postBook(data);
       navigate("/");
     } catch (error) {
-      enqueueSnackbar("Error", { variant: "error" });
+     
     }
-    enqueueSnackbar('book created ', {variant: 'success'})
+  
   };
   if (isloading) {
     return <Spinner />;

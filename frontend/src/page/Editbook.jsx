@@ -36,10 +36,10 @@ const Editbook = () => {
   const edit_book = async () => {
     try {
       await editBook(data);
-      enqueueSnackbar('book edited successfully', {variant: 'success'})
+     
        navigate("/");
     } catch (error) {
-       enqueueSnackbar("error", { variant: "error" });
+      
     }
    
    }
