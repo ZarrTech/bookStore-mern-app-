@@ -1,6 +1,6 @@
 const express = require("express");
-const cors = require("cors");
 const connectDb = require("./db/connect");
+const cors = require('cors')
 require("dotenv").config();
 const bookRoute = require("./routes/book");
 const routeNotFound = require("./middleware/routeNotFound");
@@ -9,15 +9,7 @@ const errorHandlerMiddleware = require("./middleware/errorHandlingMiddleware");
 const app = express();
 
 // middleware
-app.use(
-  cors({
-    origin: ["https://book-store-mern-frontend-pearl.vercel.app/"],
-    methods: ["GET", "POST", "PATCH", "DELETE"],
-    allowedHeaders: ["content-type"],
-    optionsSuccessStatus: 200,
-    credentials: true,
-  })
-);
+app.use(cors())
 
 app.use(express.json());
 
