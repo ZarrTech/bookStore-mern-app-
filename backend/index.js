@@ -10,13 +10,13 @@ const app = express();
 
 // middleware
 app.use(
-    cors({
-        origin: ["https://book-store-mern-frontend-beta.vercel.app"],
-        methods: ["GET", "POST", "PATCH", "DELETE"],
-        allowedHeaders: ["content-type"],
-        optionsSuccessStatus: 200,
-        credentials: true,
-    })
+  cors({
+    origin: ["https://book-store-mern-frontend-pearl.vercel.app/"],
+    methods: ["GET", "POST", "PATCH", "DELETE"],
+    allowedHeaders: ["content-type"],
+    optionsSuccessStatus: 200,
+    credentials: true,
+  })
 );
 
 app.use(express.json());
