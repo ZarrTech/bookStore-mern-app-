@@ -22,36 +22,27 @@ app.use(
 app.use(express.json());
 
 // default route
-// app.get("/", (req, res) => {
-//   res.json("hello");
-// });
+app.get("/", (req, res) => {
+  res.json("hello");
+});
 
 // routes
-app.use("/books", bookRoute);
+// app.use("/books", bookRoute);
 app.use(routeNotFound);
 app.use(errorHandlerMiddleware);
 
 const port = process.env.PORT || 3000;
-const handler = async (req, res) => {
-  try {
-    // Connect to MongoDB
-    await connectDb(process.env.MONGO_URI);
 
-    // Handle your routes here (optional)
-    if (req.method === "GET" && req.url === "/") {
-      res.json("hello");
-    } else {
-      res.status(404).json({ error: "Route not found" });
-    }
+const start = async () => {
+  try {
+    await connectDb(process.env.MONGO_URI);
+    app.listen(port, () => {
+      console.log(`server running on port ${port}`);
+    });
   } catch (error) {
-    console.error("Error connecting to database:", error);
-    res.status(500).json({ error: "Internal Server Error" });
+    console.log("could not connect to database");
   }
 };
 
- 
-    // app.listen(port, () => {
-    //   console.log(`server running on port ${port}`);
-    // });
- 
-
+// connect to mongoDB && start port
+start();
