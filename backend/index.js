@@ -11,7 +11,7 @@ const app = express();
 // middleware
 const corsOptions = {
   origin: [
-    "https://book-store-mern-frontend-pearl.vercel.app/",
+    "https://book-store-mern-frontend-pearl.vercel.app",
     "http://localhost:5173",
   ],
   credentials: true, //access-control-allow-credentials:true
