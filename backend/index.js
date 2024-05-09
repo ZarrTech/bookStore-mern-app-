@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 
 // routes
-// app.use("/books", bookRoute);
+app.use("/books", bookRoute);
 app.use(routeNotFound);
 app.use(errorHandlerMiddleware);
 
