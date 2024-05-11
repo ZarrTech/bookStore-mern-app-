@@ -9,7 +9,7 @@ const singleFetch = (url) => {
   const [error, setError] = useState(null);
     const { id } = useParams();
   const { enqueueSnackbar } = useSnackbar();
-axios.defaults.withCredentials = true;
+  
   useEffect(() => {
     const fetchSingleData = async () => {
       setIsLoading(true);

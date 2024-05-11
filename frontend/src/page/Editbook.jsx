@@ -16,7 +16,6 @@ const Editbook = () => {
   const data = { title, author, publishedYear };
   const { id } = useParams()
   const navigate = useNavigate()
-  const { enqueueSnackbar } = useSnackbar();
 
   // fetch single book to populate the form
   useEffect(() => {

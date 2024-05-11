@@ -9,15 +9,16 @@ const errorHandlerMiddleware = require("./middleware/errorHandlingMiddleware");
 const app = express();
 
 // middleware
-// const corsOptions = {
-//   origin: [
-//     "https://book-store-mern-frontend-pearl.vercel.app",
-//     "http://localhost:5173",
-//   ],
-//   credentials: true, //access-control-allow-credentials:true
-//   optionSuccessStatus: 200,
-// };
-app.use(cors());
+const corsOptions = {
+  origin: [
+    "https://book-store-mern-frontend-pearl.vercel.app",
+    "http://localhost:5173",
+    ],
+    methods:["GET", "POST", "PATCH", "DELETE"],
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
 
 app.use(express.json());
 
