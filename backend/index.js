@@ -27,6 +27,10 @@ app.get("/", (req, res) => {
   res.send("hello");
 });
 
+app.get("/health", (req, res) => {
+  res.send("API is running");
+}
+);
 // routes
 app.use("/books", bookRoute);
 app.use(routeNotFound);

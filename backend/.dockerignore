@@ -1,0 +1,27 @@
+# Node modules (we rebuild them inside the container)
+node_modules
+
+# Logs
+logs
+*.log
+npm-debug.log*
+
+# Build artifacts (copied only via Dockerfile if needed)
+dist
+build
+
+# OS/Editor clutter
+.DS_Store
+.env
+.env.*
+*.swp
+*.swo
+.vscode
+.idea
+
+# Docker-specific
+Dockerfile*
+.dockerignore
+
+.gitignore
+.git
