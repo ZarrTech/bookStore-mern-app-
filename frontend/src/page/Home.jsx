@@ -7,10 +7,10 @@ import BookTable from "../components/home/BookTable";
 import useFetch from '../useFetch/useFetch'
 import { useState } from "react";
 import BookCard from "../components/home/BookCard";
- export  const url = "https://book-store-mern-backend-xi.vercel.app/books";
+export const url = "http://web.zaraai.xyz/books"
 const Home = () => {
   const [ShowType, setShowType] = useState('table')
-  const { books, isloading, error } = useFetch(url)
+  const { books, isloading, error } = useFetch(url);
 
   return (
     <section className=" p-4">

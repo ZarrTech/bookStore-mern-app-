@@ -1,15 +1,17 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "book-app.fullname" . }}
+  name: {{ .Values.service.name }}
+  namespace: {{ .Values.metadata.namespace }}
   labels:
-    {{- include "book-app.labels" . | nindent 4 }}
+    {{ .Values.service.labels | toYaml | nindent 4 }}
 spec:
   type: {{ .Values.service.type }}
   ports:
     - port: {{ .Values.service.port }}
-      targetPort: http
+      targetPort: bookapp-port
       protocol: TCP
       name: http
   selector:
-    {{- include "book-app.selectorLabels" . | nindent 4 }}
+    app: {{ .Values.metadata.labels.app }}
+

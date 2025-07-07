@@ -13,6 +13,7 @@ const corsOptions = {
   origin: [
     "https://book-store-mern-frontend-pearl.vercel.app",
     "http://localhost:5173",
+    "http://app.zaraai.xyz"
     ],
     methods:["GET", "POST", "PATCH", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
@@ -40,7 +41,7 @@ const port = process.env.PORT || 3000;
 
 const start = async () => {
   try {
-    await connectDb(process.env.MONGO_URI);
+    await connectDb("mongodb+srv://zarus:greatMind@cakematernity.bhcohwq.mongodb.net/?retryWrites=true&w=majority&appName=cakeMaternity")
     app.listen(port, () => {
       console.log(`server running on port ${port}`);
     });
