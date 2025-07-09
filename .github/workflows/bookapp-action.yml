@@ -53,10 +53,6 @@ jobs:
     needs: testing
     runs-on: ubuntu-latest
 
-    outputs:
-      frontend_changed: ${{ steps.filter.outputs.frontend }}
-      backend_changed:  ${{ steps.filter.outputs.backend }}
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -98,6 +94,10 @@ jobs:
           daemon_off: false
           dockerfile: backend/Dockerfile
           context: ./backend
+      
+    outputs:
+      frontend_changed: ${{ steps.filter.outputs.frontend }}
+      backend_changed:  ${{ steps.filter.outputs.backend }}
 
   DeployToEKS-FRONTEND:
     needs: BUILD_AND_PUBLISH
