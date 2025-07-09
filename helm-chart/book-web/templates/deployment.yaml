@@ -6,12 +6,12 @@ metadata:
   namespace: {{ .Values.metadata.namespace }}
   labels:
     name: {{ .Values.metadata.labels.app }}
-    app: {{ .Values.metadata.labels.name }}
+    app: {{ .Values.metadata.labels.app }}
 spec:
   replicas: {{ .Values.replicaCount }}
   selector:
     matchLabels:
-      app: {{ .Values.metadata.labels.name }}
+      app: {{ .Values.metadata.labels.app }}
   template:
     metadata:
       labels: 
