@@ -1,10 +1,13 @@
 name: book Application
 run-name: ${{ github.actor }}
-on: workflow_dispatch
+on: 
+  push:
+    branches: 
+      - main
 
 env: 
   AWS_REGION: us-east-1
-  AWS_ECR: book-app
+  AWS_ECR: book
   EKS_CLUSTER: my-cluster
 
 jobs:
@@ -41,3 +44,48 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
+  
+  BUILD_AND_PUBLISH:
+    needs: testing
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Detect changed paths
+        uses: dorny/paths-filter@v3
+        id: filters
+        with:
+          filters: |
+            frontend:
+              - 'frontend/**'
+            backend:
+              - 'backend/**'
+
+      - name: Build & Push Frontend Image
+        if: steps.filters.outputs.frontend == 'true'
+        uses: appleboy/docker-ecr-action@master
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          registry: ${{ secrets.REGISTRY_FRONTEND }}
+          repo: ${{ env.AWS_ECR }}-app
+          region: ${{ env.AWS_REGION }}
+          tags: latest,${{ github.run_number }}
+          daemon_off: false
+          dockerfile: frontend/Dockerfile
+          context: ./frontend
+
+      - name: Build & Push Backend Image
+        if: steps.filters.outputs.backend == 'true'
+        uses: appleboy/docker-ecr-action@master
+        with:
+          access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          registry: ${{ secrets.REGISTRY_BACKEND }}
+          repo: ${{ env.AWS_ECR }}-web
+          region: ${{ env.AWS_REGION }}
+          tags: latest,${{ github.run_number }}
+          daemon_off: false
+          dockerfile: backend/Dockerfile
+          context: ./backend
