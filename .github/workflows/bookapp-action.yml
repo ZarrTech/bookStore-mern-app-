@@ -1,18 +1,41 @@
-name: GitHub Actions Demo
-run-name: ${{ github.actor }} is testing out GitHub Actions 🚀
-on: [push]
+name: book Application
+run-name: ${{ github.actor }}
+on: workflow_dispatch
+
+env: 
+  AWS_REGION: us-east-1
+  AWS.ECR: book-app
+  EKS_CLUSTER: my-cluster
+
 jobs:
-  Explore-GitHub-Actions:
+  testing:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
-      - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
-      - run: echo "🔎 The name of your branch is ${{ github.ref }} and your repository is ${{ github.repository }}."
-      - name: Check out repository code
-        uses: actions/checkout@v4
-      - run: echo "💡 The ${{ github.repository }} repository has been cloned to the runner."
-      - run: echo "🖥️ The workflow is now ready to test your code on the runner."
-      - name: List files in the repository
-        run: |
-          ls ${{ github.workspace }}
-      - run: echo "🍏 This job's status is ${{ job.status }}."
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          distribution: 'node'
+          node-version: '16'
+
+      - name: setup sonarqube
+        uses: warchant/setup-sonar-scanner@v7
+
+      - name: run sonarqube
+        run: sonar-scanner \
+           -Dsonar.projectKey=${{ secret.SONAR_PROJECT_KEY }} \
+           -Dsonar.sources=frontend,backend \
+           -Dsonar.exclusions=frontend/node_modules/**,backend/node_modules/**,frontend/build/**,backend/build/**,frontend/dist/**,backend/dist/**,frontend/public/**,backend/public/**,frontend/coverage/**,backend/coverage/**,frontend/*.json,backend/*.json \
+           -Dsonar.host.url=https://sonarcloud.io\
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+           -Dsonar.language=js
+      
+      - name: sonarQube quality gate
+        id: quality_gate
+        uses: sonarsource/sonarcloud-quality-gate-action@master
+        timeout-minutes: 10
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: https://sonarcloud.io
