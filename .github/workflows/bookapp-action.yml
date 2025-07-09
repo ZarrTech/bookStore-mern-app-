@@ -25,7 +25,7 @@ jobs:
 
       - name: run sonarqube
         run: sonar-scanner \
-           -Dsonar.projectKey=${{ secret.SONAR_PROJECT_KEY }} \
+           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
            -Dsonar.sources=frontend,backend \
            -Dsonar.exclusions=frontend/node_modules/**,backend/node_modules/**,frontend/build/**,backend/build/**,frontend/dist/**,backend/dist/**,frontend/public/**,backend/public/**,frontend/coverage/**,backend/coverage/**,frontend/*.json,backend/*.json \
            -Dsonar.host.url=https://sonarcloud.io\
