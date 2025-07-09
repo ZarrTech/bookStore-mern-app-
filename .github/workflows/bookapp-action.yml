@@ -30,7 +30,7 @@ jobs:
            -Dsonar.sources=frontend,backend \
            -Dsonar.exclusions=frontend/node_modules/**,backend/node_modules/**,frontend/build/**,backend/build/**,frontend/dist/**,backend/dist/**,frontend/public/**,backend/public/**,frontend/coverage/**,backend/coverage/**,frontend/*.json,backend/*.json \
            -Dsonar.host.url=https://sonarcloud.io \
-           -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+           -Dsonar.login=zarai \
            -Dsonar.language=js
            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
       
