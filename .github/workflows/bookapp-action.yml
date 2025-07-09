@@ -25,12 +25,12 @@ jobs:
 
       - name: run sonarqube
         run: sonar-scanner \
-           -D sonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
-           -D sonar.sources=frontend,backend \
-           -D sonar.exclusions=frontend/node_modules/**,backend/node_modules/**,frontend/build/**,backend/build/**,frontend/dist/**,backend/dist/**,frontend/public/**,backend/public/**,frontend/coverage/**,backend/coverage/**,frontend/*.json,backend/*.json \
-           -D sonar.host.url=https://sonarcloud.io\
-           -D sonar.login=${{ secrets.SONAR_TOKEN }} \
-           -D sonar.language=js
+           -Dsonar.projectKey=${{ secrets.SONAR_PROJECT_KEY }} \
+           -Dsonar.sources=frontend,backend \
+           -Dsonar.exclusions=frontend/node_modules/**,backend/node_modules/**,frontend/build/**,backend/build/**,frontend/dist/**,backend/dist/**,frontend/public/**,backend/public/**,frontend/coverage/**,backend/coverage/**,frontend/*.json,backend/*.json \
+           -Dsonar.host.url=https://sonarcloud.io\
+           -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+           -Dsonar.language=js
       
       - name: sonarQube quality gate
         id: quality_gate
