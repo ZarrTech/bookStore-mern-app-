@@ -19,7 +19,7 @@ spec:
     spec:
       containers:
       - name: {{ .Values.image.name }}
-        image: {{ .Values.image.repository }}:{{ .Values.image.tag }}
+        image: {{ .Values.image.repository }}:{{ .Values.apptag }}
         imagePullPolicy: Always
         ports:
         - name: bookweb-port
