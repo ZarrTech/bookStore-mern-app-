@@ -4,10 +4,6 @@ on:
   push:
     branches: 
       - main
-    paths:
-      - 'frontend/**'
-      - 'backend/**'
-      - '.github/workflows/bookapp-action.yml'
 
 env: 
   AWS_REGION: us-east-1
@@ -96,8 +92,8 @@ jobs:
           context: ./backend
       
     outputs:
-      frontend_changed: ${{ steps.filter.outputs.frontend }}
-      backend_changed:  ${{ steps.filter.outputs.backend }}
+      frontend_changed: ${{ steps.filters.outputs.frontend }}
+      backend_changed:  ${{ steps.filters.outputs.backend }}
 
   DeployToEKS-FRONTEND:
     needs: BUILD_AND_PUBLISH
