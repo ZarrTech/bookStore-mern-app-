@@ -32,6 +32,7 @@ jobs:
            -Dsonar.host.url=https://sonarcloud.io \
            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
            -Dsonar.language=js
+           -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }} \
       
       - name: sonarQube quality gate
         id: quality_gate
