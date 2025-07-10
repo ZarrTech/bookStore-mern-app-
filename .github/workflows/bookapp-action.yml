@@ -98,7 +98,7 @@ jobs:
   DeployToEKS-FRONTEND:
     needs: 
       - BUILD_AND_PUBLISH
-      - 
+      
     if: needs.BUILD_AND_PUBLISH.outputs.frontend_changed == 'true'
     runs-on: ubuntu-latest
     steps:
