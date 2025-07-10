@@ -9,7 +9,7 @@ export const url = import.meta.env.VITE_API_URL
 const Home = () => {
   const [ShowType, setShowType] = useState('table')
   const { books, isloading, error } = useFetch(url);
-  console.log('hello gluck',books);
+  console.log('hello gluck mon chaton',books);
   return (
     <section className=" p-4">
       <div className=" flex justify-center items-center gap-x-3">

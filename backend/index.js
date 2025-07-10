@@ -25,7 +25,7 @@ app.use(express.json());
 
 // default route
 app.get("/", (req, res) => {
-  res.send("hi GLUCK, i miss you and love you");
+  res.send("hi GLUCK, i miss you and love you SO MUCH");
 });
 
 app.get("/health", (req, res) => {
