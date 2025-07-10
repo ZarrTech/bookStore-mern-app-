@@ -110,12 +110,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Get Kube config file
-        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER }}
-
-      - name: Print config file
-        run: cat ~/.kube/config
-
       - name: Delete old regcred (ignore if missing)
         run: kubectl delete secret regcred --ignore-not-found
 
@@ -130,9 +124,9 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           cluster-name: ${{ env.EKS_CLUSTER }}
           #config-files: .github/values/dev.yaml
-          chart-path: helm/helm-chart/book-web
-          namespace: default
-          values: appimage=${{ secrets.REGISTRY }}/${{ env.AWS_ECR }}-web,apptag=${{ github.run_number }}
+          chart-path: helm-chart/book-web
+          namespace: book-app
+          values: appimage=${{ secrets.REGISTRY_FRONTEND }}/${{ env.AWS_ECR }}-web,apptag=${{ github.run_number }}
           name: book-web 
 
      
@@ -151,12 +145,6 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
 
-      - name: Get Kube config file
-        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER }}
-
-      - name: Print config file
-        run: cat ~/.kube/config
-
       - name: Delete old regcred (ignore if missing)
         run: kubectl delete secret regcred --ignore-not-found
 
@@ -171,7 +159,8 @@ jobs:
           aws-region: ${{ env.AWS_REGION }}
           cluster-name: ${{ env.EKS_CLUSTER }}
           #config-files: .github/values/dev.yaml
-          chart-path: helm/helm-chart/book-app
-          namespace: default
-          values: appimage=${{ secrets.REGISTRY }}/${{ env.AWS_ECR }}-app,apptag=${{ github.run_number }}
+          chart-path: helm-chart/book-app
+      
+          namespace: book-app
+          values: appimage=${{ secrets.REGISTRY_BACKEND }}/${{ env.AWS_ECR }}-app,apptag=${{ github.run_number }}
           name: book-web
