@@ -95,10 +95,49 @@ jobs:
       frontend_changed: ${{ steps.filters.outputs.frontend }}
       backend_changed:  ${{ steps.filters.outputs.backend }}
 
+  DeployToEKS-FRONTEND:
+    needs: 
+      - BUILD_AND_PUBLISH
+      - 
+    if: needs.BUILD_AND_PUBLISH.outputs.frontend_changed == 'true'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Code checkout
+        uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Update kubeconfig
+        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER }}
+
+      - name: Delete old regcred (ignore if missing)
+        run: kubectl delete secret regcred --ignore-not-found
+
+      - name: Login to ECR
+        run: kubectl create secret docker-registry regcred --docker-server=${{ secrets.REGISTRY_FRONTEND }} --docker-username=AWS  --docker-password=$(aws ecr get-login-password) 
+
+      - name: Deploy Helm
+        uses: bitovi/github-actions-deploy-eks-helm@v1.2.8
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+          cluster-name: ${{ env.EKS_CLUSTER }}
+          #config-files: .github/values/dev.yaml
+          chart-path: helm-chart/book-web/
+          namespace: book-app
+          values: appimage=${{ secrets.REGISTRY_FRONTEND }}/${{ env.AWS_ECR }}-web,apptag=${{ github.run_number }}
+          name: book-web 
    
   DeployToEKS-BACKEND:
     needs: 
       - BUILD_AND_PUBLISH
+      - DeployToEKS-FRONTEND
       
     if: needs.BUILD_AND_PUBLISH.outputs.backend_changed == 'true'
     runs-on: ubuntu-latest
@@ -136,42 +175,3 @@ jobs:
           values: appimage=${{ secrets.REGISTRY_BACKEND }}/${{ env.AWS_ECR }}-app,apptag=${{ github.run_number }}
           name: book-app
   
-
-  DeployToEKS-FRONTEND:
-    needs: 
-      - BUILD_AND_PUBLISH
-      - DeployToEKS-BACKEND
-    if: needs.BUILD_AND_PUBLISH.outputs.frontend_changed == 'true'
-    runs-on: ubuntu-latest
-    steps:
-      - name: Code checkout
-        uses: actions/checkout@v4
-
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-
-      - name: Update kubeconfig
-        run: aws eks update-kubeconfig --region ${{ env.AWS_REGION }} --name ${{ env.EKS_CLUSTER }}
-
-      - name: Delete old regcred (ignore if missing)
-        run: kubectl delete secret regcred --ignore-not-found
-
-      - name: Login to ECR
-        run: kubectl create secret docker-registry regcred --docker-server=${{ secrets.REGISTRY_FRONTEND }} --docker-username=AWS  --docker-password=$(aws ecr get-login-password) 
-
-      - name: Deploy Helm
-        uses: bitovi/github-actions-deploy-eks-helm@v1.2.8
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: ${{ env.AWS_REGION }}
-          cluster-name: ${{ env.EKS_CLUSTER }}
-          #config-files: .github/values/dev.yaml
-          chart-path: helm-chart/book-web/
-          namespace: book-app
-          values: appimage=${{ secrets.REGISTRY_FRONTEND }}/${{ env.AWS_ECR }}-web,apptag=${{ github.run_number }}
-          name: book-web 

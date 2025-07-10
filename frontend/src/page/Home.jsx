@@ -5,7 +5,7 @@ import BookTable from "../components/home/BookTable";
 import useFetch from '../useFetch/useFetch'
 import { useState } from "react";
 import BookCard from "../components/home/BookCard";
-export const url = import.meta.env.VITE_API_URL
+export const url = "http://api.lazaai.xyz:3000/books"
 const Home = () => {
   const [ShowType, setShowType] = useState('table')
   const { books, isloading, error } = useFetch(url);
