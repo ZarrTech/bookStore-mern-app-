@@ -9,7 +9,7 @@ export const url = "http://api.lazaai.xyz:3000/books"
 const Home = () => {
   const [ShowType, setShowType] = useState('table')
   const { books, isloading, error } = useFetch(url);
-  console.log('hello, mon chaton........',books);
+  console.log('hello, mon chaton',books);
   return (
     <section className=" p-4">
       <div className=" flex justify-center items-center gap-x-3">

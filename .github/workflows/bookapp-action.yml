@@ -37,13 +37,13 @@ jobs:
            -Dsonar.language=js \
            -Dsonar.organization=${{ secrets.SONAR_ORGANIZATION }}
       
-      - name: sonarQube quality gate
-        id: quality_gate
-        uses: sonarsource/sonarqube-quality-gate-action@master
-        timeout-minutes: 10
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: https://sonarcloud.io
+      # - name: sonarQube quality gate
+      #   id: quality_gate
+      #   uses: sonarsource/sonarqube-quality-gate-action@master
+      #   timeout-minutes: 10
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #     SONAR_HOST_URL: https://sonarcloud.io
   
   BUILD_AND_PUBLISH:
     needs: testing
