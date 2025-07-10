@@ -134,7 +134,7 @@ jobs:
       
           namespace: book-app
           values: appimage=${{ secrets.REGISTRY_BACKEND }}/${{ env.AWS_ECR }}-app,apptag=${{ github.run_number }}
-          name: book-web
+          name: book-app
   
 
   DeployToEKS-FRONTEND:
