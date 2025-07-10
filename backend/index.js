@@ -13,7 +13,7 @@ const corsOptions = {
   origin: [
     "https://book-store-mern-frontend-pearl.vercel.app",
     "http://localhost:5173",
-    "http://app.zaraai.xyz"
+    "http://web.lazaai.xyz"
     ],
     methods:["GET", "POST", "PATCH", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
