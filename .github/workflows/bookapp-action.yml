@@ -116,6 +116,9 @@ jobs:
       - name: Print config file
         run: cat ~/.kube/config
 
+      - name: Delete old regcred (ignore if missing)
+        run: kubectl delete secret regcred --ignore-not-found
+
       - name: Login to ECR
         run: kubectl create secret docker-registry regcred --docker-server=${{ secrets.REGISTRY_FRONTEND }} --docker-username=AWS  --docker-password=$(aws ecr get-login-password) 
 
@@ -153,6 +156,9 @@ jobs:
 
       - name: Print config file
         run: cat ~/.kube/config
+
+      - name: Delete old regcred (ignore if missing)
+        run: kubectl delete secret regcred --ignore-not-found
 
       - name: Login to ECR
         run: kubectl create secret docker-registry regcred --docker-server=${{ secrets.REGISTRY_BACKEND }} --docker-username=AWS  --docker-password=$(aws ecr get-login-password) 
