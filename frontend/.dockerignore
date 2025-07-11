@@ -24,8 +24,8 @@ Thumbs.db
 .idea
 
 # Environment files
-.env
-.env.*
+# .env
+# .env.*
 
 # Git
 .git
