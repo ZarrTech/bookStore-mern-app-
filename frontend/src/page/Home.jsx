@@ -5,11 +5,11 @@ import BookTable from "../components/home/BookTable";
 import useFetch from '../useFetch/useFetch'
 import { useState } from "react";
 import BookCard from "../components/home/BookCard";
-export const url = import.meta.env.VITE_API_URL
+export const url = "api/lazaai.xyz:3000/books"; 
 const Home = () => {
   const [ShowType, setShowType] = useState('table')
   const { books, isloading, error } = useFetch(url);
-  console.log('hello, mon chaton...',books);
+  console.log(books);
   return (
     <section className=" p-4">
       <div className=" flex justify-center items-center gap-x-3">
