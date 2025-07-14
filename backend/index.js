@@ -25,7 +25,7 @@ app.use(express.json());
 
 // default route
 app.get("/", (req, res) => {
-  res.send(" i miss you and love you SO MUCH... i am so proud of you, my love");
+  res.send(" i miss you and love you SO MUCH.... i am so proud of you, my love");
   res.send("Welcome to the Book Store API");
 });
 
