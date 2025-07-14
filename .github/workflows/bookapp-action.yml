@@ -142,7 +142,6 @@ jobs:
   DeployToEKS-BACKEND:
     needs: 
       - BUILD_AND_PUBLISH
-      - DeployToEKS-FRONTEND
       
     if: needs.BUILD_AND_PUBLISH.outputs.backend_changed == 'true'
     runs-on: ubuntu-latest
