@@ -104,7 +104,7 @@ jobs:
     needs: 
       - BUILD_AND_PUBLISH
       
-    # if: needs.BUILD_AND_PUBLISH.outputs.frontend_changed == 'true'
+    if: needs.BUILD_AND_PUBLISH.outputs.frontend_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Code checkout
@@ -142,8 +142,9 @@ jobs:
   DeployToEKS-BACKEND:
     needs: 
       - BUILD_AND_PUBLISH
+      - DeployToEKS-FRONTEND
       
-    # if: needs.BUILD_AND_PUBLISH.outputs.backend_changed == 'true'
+    if: needs.BUILD_AND_PUBLISH.outputs.backend_changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Code checkout
