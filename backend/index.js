@@ -11,9 +11,8 @@ const app = express();
 // middleware
 const corsOptions = {
   origin: [
-    "https://book-store-mern-frontend-pearl.vercel.app",
     "http://localhost:5173",
-    "http://app.lazaai.xyz"
+    "http://app.lazaai.xyz",
     ],
   methods:["GET", "POST", "PATCH", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
@@ -30,7 +29,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.send("API is running");
+  res.status(200).json({
+    status: "success",
+    message: "API is running smoothly",
+  });
 }
 );
 // routes
