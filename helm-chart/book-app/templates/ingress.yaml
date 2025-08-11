@@ -21,3 +21,10 @@ spec:
                 name: {{ .Values.service.name }}
                 port:
                   number: 3000
+          - path: /health
+            pathType: Prefix
+            backend:
+              service:
+              name: {{ .Values.service.name }}
+              port:
+                number: 3000
