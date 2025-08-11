@@ -8,7 +8,7 @@ const errorHandlerMiddleware = require("./middleware/errorHandlingMiddleware");
 
 const app = express();
 
-// middleware.
+// middleware..
 const corsOptions = {
   origin: [
     "http://localhost:5173",
