@@ -29,7 +29,10 @@ app.get("/", (req, res) => {
 });
 
 app.get("/health", (req, res) => {
-  res.send("API is running");
+  res.status(200).json({
+    status: "success",
+    message: "API is running smoothly",
+  });
 }
 );
 // routes
