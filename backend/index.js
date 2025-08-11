@@ -12,7 +12,8 @@ const app = express();
 const corsOptions = {
   origin: [
     "http://localhost:5173",
-    "http://app.lazaai.xyz"
+    "http://app.lazaai.xyz",
+    "http://172.20.61.18:9115"
     ],
     methods:["GET", "POST", "PATCH", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
