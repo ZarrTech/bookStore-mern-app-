@@ -15,7 +15,7 @@ const corsOptions = {
     "http://localhost:5173",
     "http://app.lazaai.xyz"
     ],
-    methods:["GET", "POST", "PATCH", "DELETE"],
+  methods:["GET", "POST", "PATCH", "DELETE"],
   credentials: true, //access-control-allow-credentials:true
   optionSuccessStatus: 200,
 };
