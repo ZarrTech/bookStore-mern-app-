@@ -849,8 +849,8 @@ serverFiles:
           module: [http_2xx]
         static_configs:
           - targets:
-            - http://app.lazaai.xyz/
-            - http://api.lazaai.xyz/health
+            - http://book-web-service.book-app.svc.cluster.local:80/
+            - http://book-app-service.book-app.svc.cluster.local:3000/health
         relabel_configs:
          - source_labels: [__address__]
            target_label: __param_target
